@@ -37,7 +37,6 @@ import org.slf4j.Logger;
 import org.slf4j.LoggerFactory;
 import com.alibaba.fastjson.JSON;
 import com.alibaba.fastjson.serializer.SerializerFeature;
-import com.mljr.framework.core.util.enums.CodeType;
 
 /**
  * @Description: HTTP工具类
@@ -58,110 +57,6 @@ public final class HttpUtils {
 	 * 读取超时
 	 */
 	private static int readTimeout = 50000;
-	
-	/**
-	 * @param reqUrl
-	 *            [请求地址]
-	 * @param key
-	 *            [私钥]
-	 * @param signName
-	 *            [签名参数名]
-	 * @param parameters
-	 *            [请求参数]
-	 * @param charset
-	 *            [字符集]
-	 * @param type
-	 *            [签名加密类型]
-	 * @return
-	 * @throws Exception
-	 */
-	public static String doPostBySign(String reqUrl, String key, String signName, Map<String, String> parameters,
-	        String charset, CodeType type) throws Exception {
-		return doPostBySign(reqUrl, key, signName, parameters, charset, type, true);
-	}
-	
-	/**
-	 * @param reqUrl
-	 *            [请求地址]
-	 * @param key
-	 *            [私钥]
-	 * @param signName
-	 *            [签名参数名]
-	 * @param parameters
-	 *            [请求参数]
-	 * @param charset
-	 *            [字符集]
-	 * @param type
-	 *            [签名加密类型]
-	 * @return
-	 * @throws Exception
-	 */
-	public static String doPostBySign(String reqUrl, String key, String signName, Map<String, String> parameters,
-	        String charset, CodeType type, boolean isDecodeResult) throws Exception {
-		HttpURLConnection urlConn = null;
-		try {
-			String signValue = SignUtils.createSign(key, signName, parameters, CodeType.MD5);
-			parameters.put(signName, signValue);
-			if (logger.isDebugEnabled()) {
-				logger.debug("doPostBySign parameters : " + JSON.toJSONString(parameters));
-			}
-			urlConn = sendPost(reqUrl, parameters, charset);
-			String responseContent = getContent(urlConn, charset);
-			if (logger.isDebugEnabled()) {
-				logger.debug("http responseContent : " + responseContent);
-			}
-			if (200 == urlConn.getResponseCode()) {
-				if (isDecodeResult) {
-					return SignUtils.decodeByAes(key, responseContent.trim());
-				} else {
-					return responseContent.trim();
-				}
-			} else {
-				throw new RuntimeException("http responseCode is " + urlConn.getResponseCode());
-			}
-		} finally {
-			if (urlConn != null) {
-				urlConn.disconnect();
-				urlConn = null;
-			}
-		}
-	}
-	
-	/**
-	 * @param reqUrl
-	 *            [请求地址]
-	 * @param key
-	 *            [私钥]
-	 * @param signName
-	 *            [签名参数名]
-	 * @param parameters
-	 *            [请求参数]
-	 * @param charset
-	 *            [字符集]
-	 * @param type
-	 *            [签名加密类型]
-	 * @return
-	 * @throws Exception
-	 */
-	public static String doGetBySign(String reqUrl, String key, String signName, String charset, CodeType type,
-	        boolean isDecodeResult) throws Exception {
-		Map<String, String> paramenterMap = HttpUtils.getUrlParams(reqUrl);
-		String signValue = SignUtils.createSign(key, signName, paramenterMap, CodeType.MD5);
-		paramenterMap.put(signName, signValue);
-		if (logger.isDebugEnabled()) {
-			logger.debug("doGetBySign parameters : " + JSON.toJSONString(paramenterMap));
-		}
-		if (StringUtils.contains(reqUrl, "?")) {
-			reqUrl = new StringBuffer(reqUrl).append("&").append(signName).append("=").append(signValue).toString();
-		} else {
-			reqUrl = new StringBuffer(reqUrl).append("?").append(signName).append("=").append(signValue).toString();
-		}
-		if (isDecodeResult) {
-			return SignUtils.decodeByAes(key, doGet(reqUrl, charset));
-		} else {
-			return doGet(reqUrl, charset);
-		}
-	}
 	
 	/**
 	 * 
