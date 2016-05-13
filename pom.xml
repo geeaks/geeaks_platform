@@ -93,12 +93,7 @@
 				<artifactId>carfinance-framework-web</artifactId>
 				<version>0.0.1-SNAPSHOT</version>
 			</dependency>
-			<dependency>
-				<groupId>com.github.jedis-lock</groupId>
-				<artifactId>jedis-lock</artifactId>
-				<version>1.0.0</version>
-			</dependency>
-
+			
 			<!-- spring start -->
 			<dependency>
 				<groupId>org.springframework</groupId>

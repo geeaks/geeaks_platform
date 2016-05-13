@@ -11,7 +11,7 @@ import org.apache.commons.codec.binary.Base64;
 import org.apache.commons.codec.binary.Hex;
 import org.apache.commons.lang.StringUtils;
 import com.mljr.framework.core.util.AESCoder;
-import com.mljr.framework.core.util.GtsDigestUtils;
+import com.mljr.framework.core.util.DigestUtils;
 import com.mljr.framework.core.util.enums.CodeType;
 
 /**
@@ -114,7 +114,7 @@ public class SignUtils {
 			byte[] encryptData = AESCoder.encrypt(data.getBytes(), k);
 			return Base64.encodeBase64String(encryptData);
 		} else if (CodeType.MD5.equals(type)) {
-			return GtsDigestUtils.digest(data + key).toLowerCase();
+			return DigestUtils.digest(data + key).toLowerCase();
 		}
 		return "";
 	}
