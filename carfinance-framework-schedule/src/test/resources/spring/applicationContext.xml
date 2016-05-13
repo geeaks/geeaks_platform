@@ -24,14 +24,13 @@
 			</list>
 		</property>
 	</bean>
-	<context:component-scan base-package="com.mljr.schedule" />
 	<import resource="classpath:/schedule-base-bean.xml" />
 	
 	<!-- 定时任务 -->
-	<bean id="demoTask" class="com.mljr.schedule.test.DemoTask">
+	<bean id="demoTask" class="com.mljr.carfinance.schedule.test.DemoTask">
 		<property name="version" value="1.0" />
 	</bean>
-	<bean class="com.mljr.schedule.service.ScheduleClient" init-method="init">
+	<bean class="com.mljr.carfinance.schedule.service.ScheduleClient" init-method="init">
 		<!-- 任务分组，不同的应用 值不相同 -->
 		<property name="group" value="carfinance"></property>
 		<property name="tasks">

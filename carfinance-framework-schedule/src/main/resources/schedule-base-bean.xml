@@ -17,8 +17,8 @@
 
 	default-lazy-init="false">
 	<context:annotation-config />
-	<context:component-scan base-package="com.mljr.schedule" />
-	<bean id="jedisTool" class="com.mljr.schedule.redis.JedisTool" >
+	<context:component-scan base-package="com.mljr.carfinance.schedule" />
+	<bean id="jedisTool" class="com.mljr.carfinance.schedule.redis.JedisTool" >
 		<property name="ipAddr" value="${schedule.redis.ip}" />
 		<property name="port" value="${schedule.redis.port}" />
 		<property name="password" value="${schedule.redis.password}" />
