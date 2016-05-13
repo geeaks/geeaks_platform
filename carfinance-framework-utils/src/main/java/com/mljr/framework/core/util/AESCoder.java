@@ -11,6 +11,7 @@ import javax.crypto.KeyGenerator;
 import javax.crypto.NoSuchPaddingException;
 import javax.crypto.SecretKey;
 import javax.crypto.spec.SecretKeySpec;
+import org.apache.commons.codec.binary.Base64;
 import org.apache.commons.codec.binary.Hex;
 import org.slf4j.Logger;
 import org.slf4j.LoggerFactory;
@@ -73,6 +74,38 @@ public class AESCoder {
 	public static Key toKey(byte[] key) {
 		// 生成密钥
 		return new SecretKeySpec(key, KEY_ALGORITHM);
+	}
+	
+	/**
+	 * @Description: AES加密
+	 * @param key 密钥
+	 * @param data 明文数据
+	 * @throws Exception
+	 * @return String 返回类型
+	 * @author gaoxiang
+	 * @date 2016年5月13日 下午4:05:15
+	 */
+	public static String encodeByAes(String key, String data) throws Exception {
+		byte[] keyByte = Hex.decodeHex(new String(key).toCharArray());
+		Key k = AESCoder.toKey(keyByte);
+		byte[] encryptData = AESCoder.encrypt(data.getBytes(), k);
+		return Base64.encodeBase64String(encryptData);
+	}
+	
+	/**
+	 * @Description: AES解密
+	 * @param key 密钥
+	 * @param data 密文数据
+	 * @throws Exception
+	 * @return String 返回类型
+	 * @author gaoxiang
+	 * @date 2016年5月13日 下午4:01:14
+	 */
+	public static String decodeByAes(String key, String data) throws Exception {
+		byte[] keyByte = Hex.decodeHex(key.toCharArray());
+		Key k = AESCoder.toKey(keyByte);
+		byte[] decryptData = AESCoder.decrypt(Base64.decodeBase64(data), k);
+		return new String(decryptData);
 	}
 	
 	/**
