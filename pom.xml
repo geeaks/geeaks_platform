@@ -13,7 +13,6 @@
 		<module>carfinance-framework-redis</module>
 		<module>carfinance-framework-web</module>
 		<module>carfinance-framework-utils</module>
-		<module>carfinance-framework-common</module>
 	</modules>
 
 	<properties>
