@@ -16,6 +16,7 @@ public abstract class BaseInterceptor implements MethodInterceptor {
 	
 	private static Map<Method, Boolean> methods = null;
 	
+	@Override
 	public Object invoke(MethodInvocation invocation) throws Throwable {
 		// 过滤原生方法
 		if (null == methods) {

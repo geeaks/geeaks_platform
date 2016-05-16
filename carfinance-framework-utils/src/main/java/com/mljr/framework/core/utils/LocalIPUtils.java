@@ -1,4 +1,4 @@
-package com.mljr.carfinance.log.util;
+package com.mljr.framework.core.utils;
 
 import java.net.InetAddress;
 import java.net.NetworkInterface;

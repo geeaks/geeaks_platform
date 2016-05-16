@@ -10,8 +10,13 @@ import redis.clients.jedis.JedisPool;
 import redis.clients.jedis.JedisPoolConfig;
 import redis.clients.jedis.JedisPubSub;
 
+/**
+ * @Description: Jedis连接池实现
+ * @ClassName: JedisTool
+ * @author gaoxiang
+ * @date 2016年5月16日 下午7:35:02
+ */ 
 public class JedisTool {
-	
 	
 	private Logger logger = LoggerFactory.getLogger(JedisTool.class);
 	

@@ -7,7 +7,7 @@ import com.mljr.carfinance.core.aop.BaseInterceptor;
 import com.mljr.carfinance.core.diagnostic.Profiler;
 
 /**
- * @Description: 性能监控
+ * @Description: 性能日志拦截器
  * @ClassName: PerformanceMonitorInterceptor
  * @author gaoxiang
  * @date 2015年11月17日 下午10:32:33
@@ -22,6 +22,7 @@ public class PerformanceMonitorInterceptor extends BaseInterceptor {
 	/**
 	 * 判断方法调用的时间是否超过阈值，如果是，则打印性能日志.
 	 */
+	@Override
 	public Object bizInvoke(MethodInvocation invocation) throws Throwable {
 		StringBuilder builder = new StringBuilder(64);
 		builder.append(invocation.getMethod().getDeclaringClass().getName());
@@ -35,7 +36,7 @@ public class PerformanceMonitorInterceptor extends BaseInterceptor {
 			Profiler.release();
 			if (!Profiler.isSuperStart()) {
 				long elapseTime = Profiler.getDuration();
-				
+				//如果方法调用时间超过 阈值,则打印性能日志
 				if (elapseTime > threshold) {
 					StringBuilder builderTmp = new StringBuilder();
 					builderTmp.append(" method ").append(name);
@@ -45,14 +46,6 @@ public class PerformanceMonitorInterceptor extends BaseInterceptor {
 					builderTmp.append(" used P = ").append(elapseTime).append("ms.\r\n");
 					builderTmp.append(Profiler.dump());
 					logger.info(builderTmp.toString());
-				} else {
-					if (logger.isDebugEnabled()) {
-						StringBuilder builderTmp = new StringBuilder();
-						builderTmp.append("method").append(name);
-						// 实际执行时间为
-						builderTmp.append(" used P = ").append(elapseTime).append("ms.\r\n");
-						logger.debug(builderTmp.toString());
-					}
 				}
 			}
 			Profiler.reset();

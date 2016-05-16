@@ -1,4 +1,4 @@
-package com.mljr.carfinance.log.util;
+package com.mljr.carfinance.log.model;
 
 import org.apache.commons.lang.StringUtils;
 import com.alibaba.fastjson.JSON;

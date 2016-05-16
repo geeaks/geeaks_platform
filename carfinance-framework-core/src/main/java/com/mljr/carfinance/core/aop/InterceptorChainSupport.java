@@ -6,7 +6,7 @@ import java.util.List;
 import org.aopalliance.intercept.MethodInvocation;
 
 /**
- * @Description: 简单的拦截器链路的实现
+ * @Description: 拦截器链路支持
  * @ClassName: InterceptorChainSupport
  * @author gaoxiang
  * @date 2015年11月17日 下午10:38:08
@@ -40,6 +40,7 @@ public class InterceptorChainSupport implements MethodInvocation {
 	
 	public Object proceed() throws Throwable {
 		if (null != chains) {
+			//任务链逐个执行
 			if (chains.size() > 0) {
 				return chains.remove(0).invoke(this);
 			}

@@ -6,7 +6,7 @@ import org.aopalliance.intercept.MethodInvocation;
 import com.google.common.collect.Lists;
 
 /**
- * @Description: 简单的拦截器链路的实现
+ * @Description: 拦截器链路
  * @ClassName: InterceptorChain
  * @author gaoxiang
  * @date 2015年11月17日 下午10:28:09
@@ -17,8 +17,7 @@ public class InterceptorChain extends BaseInterceptor {
 	
 	@Override
 	public Object bizInvoke(MethodInvocation invocation) throws Throwable {
-		InterceptorChainSupport support = new InterceptorChainSupport(invocation, new ArrayList<BaseInterceptor>(chains));
-		return support.proceed();
+		return new InterceptorChainSupport(invocation, new ArrayList<BaseInterceptor>(chains)).proceed();
 	}
 	
 	public void setChains(List<BaseInterceptor> chains) {

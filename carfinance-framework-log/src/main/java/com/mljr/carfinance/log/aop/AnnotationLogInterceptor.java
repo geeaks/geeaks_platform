@@ -12,8 +12,8 @@ import com.mljr.carfinance.core.aop.BaseInterceptor;
 import com.mljr.carfinance.log.annotation.DigestLog;
 import com.mljr.carfinance.log.enums.LoggerLevel;
 import com.mljr.carfinance.log.enums.LoggerPrintType;
+import com.mljr.carfinance.log.model.DefaultDigestLogInfo;
 import com.mljr.carfinance.log.model.LogInfo;
-import com.mljr.carfinance.log.util.DefaultDigestLogInfo;
 import com.mljr.framework.core.utils.AnnotatedUtils;
 
 /**
