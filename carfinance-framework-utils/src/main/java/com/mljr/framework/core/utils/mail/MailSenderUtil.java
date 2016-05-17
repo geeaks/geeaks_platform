@@ -16,14 +16,14 @@ public class MailSenderUtil {
 	private String toAddress;
 	
 	/**
-	 * @Description: 网信金融发送运营异常信息
+	 * @Description: 发送html信息
 	 * @param subject
 	 * @param content
 	 * @return void 返回类型
 	 * @author gaoxiang
 	 * @date 2015-7-22 下午3:39:02
 	 */
-	public void sendWXJRMail(String subject, String content) {
+	public void sendHtmlMail(String subject, String content) {
 		MailSenderInfo mailInfo = setMailInfo(subject, content);
 		if (StringUtils.isNotEmpty(toAddress)) {
 			String[] toAdressArray = toAddress.split(",");
@@ -43,7 +43,7 @@ public class MailSenderUtil {
 	 * @author gaoxiang
 	 * @date 2015-7-22 上午11:54:08
 	 */
-	public void sendHTMLMail(String subject, String content, String address) {
+	public void sendHtmlMail(String subject, String content, String address) {
 		MailSenderInfo mailInfo = setMailInfo(subject, content);
 		if (StringUtils.isNotEmpty(address)) {
 			mailInfo.setToAddress(address);
@@ -109,7 +109,10 @@ public class MailSenderUtil {
 	
 	public static void main(String args[]) {
 		MailSenderUtil mailSenderUtil = new MailSenderUtil();
-		mailSenderUtil.setToAddress("vsflyhigh@qq.com");
-		mailSenderUtil.sendWXJRMail("test", "test");
+		mailSenderUtil.setMailServerHost("smtp.qq.com");
+		mailSenderUtil.setMailServerPort("25");
+		mailSenderUtil.setEmailAddress("vsflyhigh@qq.com");
+		mailSenderUtil.setEmailPassword("shise520a");
+		mailSenderUtil.sendHtmlMail("test", "test","geeaks@aliyun.com");
 	}
 }

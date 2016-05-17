@@ -116,6 +116,7 @@ public class SimpleMailSender {
 			Transport.send(mailMessage);
 			return true;
 		} catch (MessagingException ex) {
+			System.out.println(ex);
 			LOGGER.error("邮件发送失败", ex);
 		}
 		return false;
